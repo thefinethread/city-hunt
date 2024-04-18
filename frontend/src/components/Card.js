@@ -1,11 +1,8 @@
-import { Link } from 'react-router-dom';
-import { formatLabelText } from '../utils/utils';
-
-const Card = ({ img, label, value, onClick, completed = false }) => {
+const Card = ({ img, label, onClick, completed = false }) => {
   return (
     <button
       onClick={onClick}
-      className={`block rounded-xl relative p-2 cursor-pointer border-2 border-zinc-500 border-solid hover:scale-105 transition-transform ${
+      className={`block rounded-xl relative p-2 cursor-pointer border-2 border-solid hover:scale-105 transition-transform ${
         completed ? 'border-green-500 border-[3px]' : 'border-zinc-500'
       }`}
     >

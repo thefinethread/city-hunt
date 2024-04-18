@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from './Button';
 import RadioInput from './RadioInput';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -39,6 +39,10 @@ const Vehicle = () => {
   const isChecked = (value) => vehicle === value;
 
   const isDisabled = (vehicle) => availableVehicles[vehicle]?.quantity === 0;
+
+  useEffect(() => {
+    if (!vehicles) navigate('/');
+  }, []);
 
   return (
     <div className='flex bg-[#171717]  flex-col justify-between items-center gap-4 h-full py-4'>

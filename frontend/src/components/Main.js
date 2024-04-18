@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Card from './Card';
 import AppContext from '../context/AppContext';
 import Button from './Button';
@@ -25,7 +25,9 @@ const Main = () => {
   const handleSelectCop = (label) =>
     navigate(`/${label.toLowerCase()}/select-city`);
 
-  console.log(copsData);
+  useEffect(() => {
+    if (cops?.length === 0) navigate('/');
+  }, []);
 
   return (
     <div className='flex bg-[#171717] gap-6 text-center flex-col justify-between items-center h-full py-4'>

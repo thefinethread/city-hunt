@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from './Button';
 import RadioInput from './RadioInput';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -40,6 +40,10 @@ const City = () => {
   const isDisabled = (value) => !availableCities.includes(value);
 
   const isChecked = (value) => city === value;
+
+  useEffect(() => {
+    if (cities?.length === 0) navigate('/');
+  }, []);
 
   return (
     <div className='flex bg-[#171717]  flex-col justify-between items-center gap-4 h-full py-4 mb-3'>

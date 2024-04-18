@@ -1,4 +1,4 @@
-const { SERVER_ERROR, FAILURE_MSG } = require('../constants/constants');
+const { SERVER_ERROR } = require('../constants/constants');
 const cops = require('../data/cops.json');
 const cities = require('../data/cities.json');
 const vehicles = require('../data/vehicles.json');
@@ -28,10 +28,10 @@ const calculateResult = async (req, res) => {
 
     const copsData = Object.values(copsPayload);
 
-    const index = copsData.findIndex((data) => data.city === fugitiveLocation);
+    const index = copsData.findIndex((data) => data.city === FUGITIVE_LOCATION);
 
     if (index === -1) {
-      return res.status(404).json({ success: false, message: FAILURE_MSG });
+      return res.status(200).json({ success: false });
     }
     const { vehicle, city } = copsData[index];
 
@@ -40,7 +40,7 @@ const calculateResult = async (req, res) => {
       return res.status(200).json({ success: true, cop: copName });
     }
 
-    return res.status(404).json({ success: false, message: FAILURE_MSG });
+    return res.status(200).json({ success: false });
   } catch (error) {
     res.status(500).json({ error: SERVER_ERROR });
   }

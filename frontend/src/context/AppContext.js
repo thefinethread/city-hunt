@@ -47,6 +47,16 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  const resetStates = () => {
+    setCops([]);
+    setCities([]);
+    setVehicles(null);
+    setCopsData(initialState);
+
+    setAvailableCities([]);
+    setAvailableVehicles(null);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -57,6 +67,7 @@ export const AppContextProvider = ({ children }) => {
         availableCities,
         availableVehicles,
         setCops,
+        resetStates,
         initializeAppData,
         setCopsData,
         updateAvailableCities,
