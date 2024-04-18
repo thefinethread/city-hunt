@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
-import evBike from '../assets/images/vehicles/ev-bike.png';
-import evCar from '../assets/images/vehicles/ev-car.png';
-import evSuv from '../assets/images/vehicles/ev-suv.png';
+import { useContext } from 'react';
 import Button from './Button';
 import RadioInput from './RadioInput';
 import { useNavigate, useParams } from 'react-router-dom';
-import { formatLabelText } from '../utils/utils';
 import AppContext from '../context/AppContext';
-
-const imgs = [evBike, evCar, evSuv];
+import Heading from './Heading';
+import NoResult from './NoResult';
 
 const Vehicle = () => {
   const { copId } = useParams();
@@ -42,52 +38,29 @@ const Vehicle = () => {
 
   const isChecked = (value) => vehicle === value;
 
-  const isDisabled = (vehicle) => {
-    return availableVehicles[vehicle] === 0;
-  };
-
-  console.log(availableVehicles);
+  const isDisabled = (vehicle) => availableVehicles[vehicle]?.quantity === 0;
 
   return (
     <div className='flex bg-[#171717]  flex-col justify-between items-center gap-4 h-full py-4'>
-      <h1 className='text-6xl font-bold text-center font-bungee'>
-        SELECT VEHICLE FOR {formatLabelText(copId).toUpperCase()}
-      </h1>
+      <Heading text={`SELECT VEHICLE FOR ${copId.toUpperCase()}`} />
 
       {/* Content for selecting cities */}
       <div className='flex flex-wrap gap-8 w-full items-center justify-center'>
-        {Object.keys(vehicles)?.map((vehicle, i) => (
-          <RadioInput
-            key={vehicle}
-            img={imgs[i]}
-            label={vehicle}
-            value={vehicle}
-            onChange={handleChange}
-            checked={isChecked(vehicle)}
-            disabled={isDisabled(vehicle)}
-          />
-        ))}
-        {/* <RadioInput
-          img={evBike}
-          label='EV Bike'
-          value='evBike'
-          onChange={handleChange}
-          checked={isChecked('evBike')}
-        />
-        <RadioInput
-          img={evCar}
-          label='EV Car'
-          value='evCar'
-          onChange={handleChange}
-          checked={isChecked('evCar')}
-        />
-        <RadioInput
-          img={evSuv}
-          label='EV SUV'
-          value='evSuv'
-          onChange={handleChange}
-          checked={isChecked('evSuv')}
-        /> */}
+        {vehicles ? (
+          Object.values(vehicles)?.map(({ label, value, imgUrl }) => (
+            <RadioInput
+              key={value}
+              img={imgUrl}
+              label={label}
+              value={value}
+              onChange={handleChange}
+              checked={isChecked(value)}
+              disabled={isDisabled(value)}
+            />
+          ))
+        ) : (
+          <NoResult />
+        )}
       </div>
       <div className='flex gap-3'>
         <Button text='Back' onClick={() => navigate(-1)} />

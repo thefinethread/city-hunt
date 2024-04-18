@@ -3,53 +3,34 @@ import { createContext, useState } from 'react';
 const AppContext = createContext();
 
 const initialState = {
-  cop1: { city: '', vehicle: '' },
-  cop2: { city: '', vehicle: '' },
-  cop3: { city: '', vehicle: '' },
+  ['cop-1']: { city: '', vehicle: '' },
+  ['cop-2']: { city: '', vehicle: '' },
+  ['cop-3']: { city: '', vehicle: '' },
 };
 
-const c = [
-  'Yapkashnagar',
-  'Lihaspur',
-  'Narmis City',
-  'Shekharvati',
-  'Nuravgram',
-];
-
 export const AppContextProvider = ({ children }) => {
+  const [cops, setCops] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [availableCities, setAvailableCities] = useState([]);
   const [copsData, setCopsData] = useState(initialState);
-  const [cities, setCities] = useState([
-    'Yapkashnagar',
-    'Lihaspur',
-    'Narmis City',
-    'Shekharvati',
-    'Nuravgram',
-  ]);
 
-  const [availableCities, setAvailableCities] = useState([
-    'Yapkashnagar',
-    'Lihaspur',
-    'Narmis City',
-    'Shekharvati',
-    'Nuravgram',
-  ]);
+  const [vehicles, setVehicles] = useState(null);
+  const [availableVehicles, setAvailableVehicles] = useState(null);
 
-  const [vehicles, setVehicles] = useState({
-    evBike: 2,
-    evCar: 1,
-    evSuv: 1,
-  });
-  const [availableVehicles, setAvailableVehicles] = useState({
-    evBike: 2,
-    evCar: 1,
-    evSuv: 1,
-  });
+  const initializeAppData = ({ cops, cities, vehicles }) => {
+    setCops(cops);
+    setCities(cities);
+    setVehicles(vehicles);
+
+    setAvailableCities(cities.map((city) => city.value));
+    setAvailableVehicles(vehicles);
+  };
 
   const updateAvailableVehicles = (currentVehicle, newVehicle) => {
     const obj = { ...availableVehicles };
 
-    obj[newVehicle] += -1;
-    if (currentVehicle) obj[currentVehicle] += 1;
+    obj[newVehicle].quantity += -1;
+    if (currentVehicle) obj[currentVehicle].quantity += 1;
 
     setAvailableVehicles(obj);
   };
@@ -69,11 +50,14 @@ export const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        cops,
         copsData,
         cities,
         vehicles,
         availableCities,
         availableVehicles,
+        setCops,
+        initializeAppData,
         setCopsData,
         updateAvailableCities,
         updateAvailableVehicles,

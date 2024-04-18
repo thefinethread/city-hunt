@@ -1,0 +1,17 @@
+[
+  {
+    "value": "cop1",
+    "label": "Cop-1",
+    "imgUrl": "https://i.ibb.co/YB235cP/cop1.png"
+  },
+  {
+    "value": "cop2",
+    "label": "Cop-2",
+    "imgUrl": "https://i.ibb.co/hFrtLx2/cop2.png"
+  },
+  {
+    "value": "cop3",
+    "label": "Cop-3",
+    "imgUrl": "https://i.ibb.co/pW6SwDs/cop3.png"
+  }
+]

@@ -1,16 +1,10 @@
-import React, { useContext } from 'react';
-import yapkashnagar from '../assets/images/cities/yapkashnagar.png';
-import lihaspur from '../assets/images/cities/lihaspur.png';
-import narmisCity from '../assets/images/cities/narmis-city.png';
-import shekharvati from '../assets/images/cities/shekharvati.png';
-import nuravgram from '../assets/images/cities/nuravgram.png';
+import { useContext } from 'react';
 import Button from './Button';
 import RadioInput from './RadioInput';
 import { useNavigate, useParams } from 'react-router-dom';
-import { formatLabelText } from '../utils/utils';
 import AppContext from '../context/AppContext';
-
-const imgs = [yapkashnagar, lihaspur, narmisCity, shekharvati, nuravgram];
+import Heading from './Heading';
+import NoResult from './NoResult';
 
 const City = () => {
   const { copId } = useParams();
@@ -43,27 +37,30 @@ const City = () => {
 
   const handleNext = () => navigate(`/${copId}/select-vehicle`);
 
+  const isDisabled = (value) => !availableCities.includes(value);
+
   const isChecked = (value) => city === value;
 
   return (
-    <div className='flex bg-[#171717]  flex-col justify-between items-center gap-4 h-full py-4'>
-      <h1 className='text-6xl font-bold text-center font-bungee'>
-        SELECT CITY FOR {formatLabelText(copId).toUpperCase()}
-      </h1>
+    <div className='flex bg-[#171717]  flex-col justify-between items-center gap-4 h-full py-4 mb-3'>
+      <Heading text={` SELECT CITY FOR ${copId.toUpperCase()}`} />
 
-      {/* Content for selecting cities */}
       <div className='flex flex-wrap gap-8 w-full items-center justify-center'>
-        {cities?.map((city, i) => (
-          <RadioInput
-            key={city}
-            disabled={!availableCities.includes(city)}
-            img={imgs[i]}
-            label={city}
-            value={city}
-            onChange={handleChange}
-            checked={isChecked(city)}
-          />
-        ))}
+        {cities?.length ? (
+          cities?.map(({ value, label, imgUrl }) => (
+            <RadioInput
+              key={value}
+              disabled={isDisabled(value)}
+              img={imgUrl}
+              label={label}
+              value={value}
+              onChange={handleChange}
+              checked={isChecked(value)}
+            />
+          ))
+        ) : (
+          <NoResult />
+        )}
       </div>
 
       <div className='flex gap-3'>
