@@ -9,6 +9,7 @@ const RadioInput = ({
 }) => {
   return (
     <label
+      data-testid='radio'
       className={`block relative rounded-xl p-2 cursor-pointer border-2 border-solid transition-transform ${
         checked ? 'border-green-500 border-[3px]' : 'border-zinc-500'
       } ${disabled ? 'cursor-not-allowed hover:scale-100' : 'hover:scale-105'}`}
