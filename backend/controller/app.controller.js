@@ -15,11 +15,7 @@ const setFugitiveLocation = (req, res) => {
 };
 
 const getData = async (req, res) => {
-  try {
-    res.status(201).json({ cops, cities, vehicles });
-  } catch (error) {
-    res.status(500).json({ error: SERVER_ERROR });
-  }
+  res.status(200).json({ cops, cities, vehicles });
 };
 
 const calculateResult = async (req, res) => {
@@ -50,4 +46,8 @@ const hasEnoughRange = (vehicle, city) => {
   return vehiclesRange[vehicle] >= 2 * cityDistance[city];
 };
 
-module.exports = { getData, calculateResult, setFugitiveLocation };
+module.exports = {
+  getData,
+  calculateResult,
+  setFugitiveLocation,
+};

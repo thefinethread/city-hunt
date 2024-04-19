@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node backend/index.js",
     "dev": "nodemon backend/index.js",
-    "build": "npm i && npm i --prefix frontend && npm run build --prefix frontend"
+    "build": "npm i && npm i --prefix frontend && npm run build --prefix frontend",
+    "test": "jest --coverage --watchAll"
   },
   "author": "Kartikey Shukla",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
